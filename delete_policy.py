@@ -38,6 +38,14 @@ def main():
 
             result = iamfunction.delete_policy(policy_arn, iam)
             print(result['Note'])
+            if result['Deleted']:
+                detached = result['Detached']
+                if len(detached['Users']) > 0:
+                    print('detach users: ' + ', '.join(detached['Users']))
+                if len(detached['Groups']) > 0:
+                    print('detach groups: ' + ', '.join(detached['Groups']))
+                if len(detached['Roles']) > 0:
+                    print('detach roles: ' + ', '.join(detached['Roles']))
 
     if not args.config and not args.policy_arn:
         print('入力エラー: configなしの場合、--policy-arn を指定してください')

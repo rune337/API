@@ -12,7 +12,7 @@ accounts:
     delete_groups: []
     policies:
       aa:
-        arn: arn:aws:iam::123456789012:policy/aa
+        arn: arn:aws:iam::111111111111:policy/aa
         file: ../A.json
     create_policies:
       - name: aa
@@ -20,8 +20,7 @@ accounts:
     update_policies:
       - policy_name: aa
         file: ../A.json
-    delete_policies:
-      - policy_name: aa
+    delete_policies: []
     attach_user_policies:
       - user: user-a
         policy: aa

@@ -223,8 +223,43 @@ def create_policy(policy_name, policy_document, iam):
     }
 
 
+def detach_policy_from_entities(policy_arn, iam):
+    detached = {
+        'Users': [],
+        'Groups': [],
+        'Roles': [],
+    }
+
+    entities = iam.list_entities_for_policy(PolicyArn=policy_arn)
+
+    for user in entities['PolicyUsers']:
+        iam.detach_user_policy(
+            UserName=user['UserName'],
+            PolicyArn=policy_arn,
+        )
+        detached['Users'].append(user['UserName'])
+
+    for group in entities['PolicyGroups']:
+        iam.detach_group_policy(
+            GroupName=group['GroupName'],
+            PolicyArn=policy_arn,
+        )
+        detached['Groups'].append(group['GroupName'])
+
+    for role in entities['PolicyRoles']:
+        iam.detach_role_policy(
+            RoleName=role['RoleName'],
+            PolicyArn=policy_arn,
+        )
+        detached['Roles'].append(role['RoleName'])
+
+    return detached
+
+
 def delete_policy(policy_arn, iam):
     try:
+        detached = detach_policy_from_entities(policy_arn, iam)
+
         versions = iam.list_policy_versions(PolicyArn=policy_arn)['Versions']
         for version in versions:
             if not version['IsDefaultVersion']:
@@ -243,6 +278,7 @@ def delete_policy(policy_arn, iam):
 
     return {
         'Deleted': True,
+        'Detached': detached,
         'Note': policy_arn + 'を削除しました',
     }
 

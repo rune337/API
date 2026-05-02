@@ -454,7 +454,8 @@ config: delete_policies または policies
 iamfunction.delete_policy()
 ```
 
-削除前に、非デフォルトのポリシーバージョンを削除します。
+削除前に、ユーザー、グループ、ロールからポリシーをdetachします。
+その後、非デフォルトのポリシーバージョンを削除してからポリシー本体を削除します。
 
 ### attach_user_policy.py
 
