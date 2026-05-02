@@ -1,0 +1,67 @@
+accounts:
+  - name: account-a
+    account_id: '111111111111'
+    access_key: test
+    secret_key: test
+    create_users:
+      - user-a
+      - user-b
+    delete_users: []
+    create_groups:
+      - group-a
+    delete_groups: []
+    policies:
+      aa:
+        arn: arn:aws:iam::123456789012:policy/aa
+        file: ../A.json
+    create_policies:
+      - name: aa
+        file: ../A.json
+    update_policies:
+      - policy_name: aa
+        file: ../A.json
+    delete_policies:
+      - policy_name: aa
+    attach_user_policies:
+      - user: user-a
+        policy: aa
+    detach_user_policies: []
+    attach_group_policies:
+      - group: group-a
+        policy: aa
+    detach_group_policies: []
+
+  - name: account-b
+    account_id: '222222222222'
+    access_key: test
+    secret_key: test
+    create_users:
+      - user-c
+    delete_users: []
+    create_groups: []
+    delete_groups: []
+    policies: {}
+    create_policies: []
+    update_policies: []
+    delete_policies: []
+    attach_user_policies: []
+    detach_user_policies: []
+    attach_group_policies: []
+    detach_group_policies: []
+
+  - name: account-c
+    account_id: '333333333333'
+    access_key: test
+    secret_key: test
+    create_users: []
+    delete_users: []
+    create_groups: []
+    delete_groups: []
+    policies: {}
+    create_policies: []
+    update_policies: []
+    delete_policies: []
+    attach_user_policies: []
+    detach_user_policies: []
+    attach_group_policies: []
+    detach_group_policies: []
